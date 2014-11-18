@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ResultData" targetNamespace="http://tempuri.org/ResultData.xsd" xmlns:mstns="http://tempuri.org/ResultData.xsd" xmlns="http://tempuri.org/ResultData.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+        </Connections>
+        <Tables>
+        </Tables>
+        <Sources>
+        </Sources>
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ResultData" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="ResultData" msprop:Generator_DataSetName="ResultData">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="resultsTable" msprop:Generator_UserTableName="resultsTable" msprop:Generator_RowDeletedName="resultsTableRowDeleted" msprop:Generator_RowChangedName="resultsTableRowChanged" msprop:Generator_RowClassName="resultsTableRow" msprop:Generator_RowChangingName="resultsTableRowChanging" msprop:Generator_RowEvArgName="resultsTableRowChangeEvent" msprop:Generator_RowEvHandlerName="resultsTableRowChangeEventHandler" msprop:Generator_TableClassName="resultsTableDataTable" msprop:Generator_TableVarName="tableresultsTable" msprop:Generator_RowDeletingName="resultsTableRowDeleting" msprop:Generator_TablePropName="resultsTable">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="fileName" msprop:Generator_UserColumnName="fileName" msprop:Generator_ColumnVarNameInTable="columnfileName" msprop:Generator_ColumnPropNameInRow="fileName" msprop:Generator_ColumnPropNameInTable="fileNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="fileType" msprop:Generator_UserColumnName="fileType" msprop:Generator_ColumnVarNameInTable="columnfileType" msprop:Generator_ColumnPropNameInRow="fileType" msprop:Generator_ColumnPropNameInTable="fileTypeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="totalLines" msprop:Generator_UserColumnName="totalLines" msprop:Generator_ColumnVarNameInTable="columntotalLines" msprop:Generator_ColumnPropNameInRow="totalLines" msprop:Generator_ColumnPropNameInTable="totalLinesColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="numberMethods" msprop:Generator_UserColumnName="numberMethods" msprop:Generator_ColumnVarNameInTable="columnnumberMethods" msprop:Generator_ColumnPropNameInRow="numberMethods" msprop:Generator_ColumnPropNameInTable="numberMethodsColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="codeLines" msprop:Generator_UserColumnName="codeLines" msprop:Generator_ColumnVarNameInTable="columncodeLines" msprop:Generator_ColumnPropNameInRow="codeLines" msprop:Generator_ColumnPropNameInTable="codeLinesColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="commentLines" msprop:Generator_UserColumnName="commentLines" msprop:Generator_ColumnVarNameInTable="columncommentLines" msprop:Generator_ColumnPropNameInRow="commentLines" msprop:Generator_ColumnPropNameInTable="commentLinesColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="blankLines" msprop:Generator_UserColumnName="blankLines" msprop:Generator_ColumnVarNameInTable="columnblankLines" msprop:Generator_ColumnPropNameInRow="blankLines" msprop:Generator_ColumnPropNameInTable="blankLinesColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="codePercent" msprop:Generator_UserColumnName="codePercent" msprop:Generator_ColumnVarNameInTable="columncodePercent" msprop:Generator_ColumnPropNameInRow="codePercent" msprop:Generator_ColumnPropNameInTable="codePercentColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="commentPercent" msprop:Generator_UserColumnName="commentPercent" msprop:Generator_ColumnVarNameInTable="columncommentPercent" msprop:Generator_ColumnPropNameInRow="commentPercent" msprop:Generator_ColumnPropNameInTable="commentPercentColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="blankPercent" msprop:Generator_UserColumnName="blankPercent" msprop:Generator_ColumnVarNameInTable="columnblankPercent" msprop:Generator_ColumnPropNameInRow="blankPercent" msprop:Generator_ColumnPropNameInTable="blankPercentColumn" type="xs:decimal" minOccurs="0" />
+              <xs:element name="projectName" msprop:Generator_UserColumnName="projectName" msprop:Generator_ColumnPropNameInRow="projectName" msprop:Generator_ColumnVarNameInTable="columnprojectName" msprop:Generator_ColumnPropNameInTable="projectNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="projectPath" msprop:Generator_UserColumnName="projectPath" msprop:Generator_ColumnPropNameInRow="projectPath" msprop:Generator_ColumnVarNameInTable="columnprojectPath" msprop:Generator_ColumnPropNameInTable="projectPathColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="resultsTableKey1">
+      <xs:selector xpath=".//mstns:resultsTable" />
+      <xs:field xpath="mstns:fileName" />
+      <xs:field xpath="mstns:fileType" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
