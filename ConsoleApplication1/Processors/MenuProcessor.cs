@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
@@ -13,7 +12,7 @@ namespace ConsoleApplication1.Processors
             return extension.ToLower().Equals("mnx");
         }
 
-        public override Result Process(string path, List<string> keywords)
+        public override Result Process(string path)
         {
             var result = new Result { Name = Path.GetFileName(path), Path = path };
             OleDbConnection conn = null;

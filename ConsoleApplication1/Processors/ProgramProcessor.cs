@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 namespace ConsoleApplication1.Processors
 {
@@ -10,7 +9,7 @@ namespace ConsoleApplication1.Processors
             return extension.ToLower().Equals("prg") || extension.ToLower().Equals("h");
         }
 
-        public override Result Process(string path, List<string> keywords)
+        public override Result Process(string path)
         {
             var result = new Result { Name = Path.GetFileName(path), Path = path };
 

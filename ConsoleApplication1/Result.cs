@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ConsoleApplication1
 {
@@ -22,6 +23,6 @@ namespace ConsoleApplication1
 
         public int CodeLines { get; set; }
 
-        public int Special { get; set; }
+        public List<string> Keywords { get; set; }
     }
 }

@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-
 namespace ConsoleApplication1.Processors
 {
     public abstract class FileProcessor
     {
         public abstract bool CanProcess(string extension);
 
-        public abstract Result Process(string path, List<string> keywords);
+        public abstract Result Process(string path);
 
         public int Occurs(string cString, string cExpression)
         {

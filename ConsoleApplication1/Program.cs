@@ -29,7 +29,6 @@ namespace ConsoleApplication1
                .Append("CodeLines").Append(Separator)
                .Append("IsError").Append(Separator)
                .Append("ErrorMessage").Append(Separator)
-               .Append("Special").Append(Separator)
                .Append(Environment.NewLine);
 
             var processors = new List<FileProcessor>
@@ -44,7 +43,7 @@ namespace ConsoleApplication1
             if (Path.HasExtension(options.Target))
             {
                 var fileProcessor = processors.FirstOrDefault(proc => proc.CanProcess(Path.GetExtension(options.Target))) ?? nullProcessor;
-                ProcessSingleFile(options.Target, fileProcessor, options.Keywords);
+                ProcessSingleFile(options.Target, fileProcessor);
                 return;
             }
 
@@ -52,14 +51,13 @@ namespace ConsoleApplication1
             var errors = new List<Result>();
 
             var files = Directory.EnumerateFiles(options.Target, "*.*", SearchOption.AllDirectories);
-            var keywords = options.Keywords.ToList();
             var results = options.Extensions.Any()
                               ? options.Extensions.SelectMany(
                                   ext =>
                                   files.Where(file => file.EndsWith("." + ext))
-                                      .Select(path => (processors.FirstOrDefault(p => p.CanProcess(ext)) ?? nullProcessor).Process(path, keywords)))
+                                      .Select(path => (processors.FirstOrDefault(p => p.CanProcess(ext)) ?? nullProcessor).Process(path)))
                               : files.Select(
-                                  file => (processors.FirstOrDefault(proc => proc.CanProcess(Path.GetExtension(file).Substring(1))) ?? nullProcessor).Process(file, keywords));
+                                  file => (processors.FirstOrDefault(proc => proc.CanProcess(Path.GetExtension(file).Substring(1))) ?? nullProcessor).Process(file));
 
             foreach (var result in results)
             {
@@ -80,12 +78,11 @@ namespace ConsoleApplication1
                    .Append(result.CodeLines).Append(Separator)
                    .Append(result.IsError).Append(Separator)
                    .Append(result.ErrorMessage).Append(Separator)
-                   .Append(result.Special)
                    .Append(Environment.NewLine);
             }
 
             File.WriteAllText("results.csv", csv.ToString());
-
+            
             Console.Out.WriteLine("Total: {0}", count);
             Console.Out.WriteLine("Errors: {0}", errors.Count);
             Console.WriteLine();
@@ -99,9 +96,9 @@ namespace ConsoleApplication1
             }
         }
 
-        private static void ProcessSingleFile(string path, FileProcessor processor, IEnumerable<string> keywords)
+        private static void ProcessSingleFile(string path, FileProcessor processor)
         {
-            var result = processor.Process(path, keywords.ToList());
+            var result = processor.Process(path);
 
             Console.WriteLine("Path: {0}", result.Path);
             Console.WriteLine("Methods: {0}", result.MethodCount);

@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VFPLOCCounter", "VFPLOCCounter\VFPLOCCounter.csproj", "{ED54E38F-BDBC-43B9-BF9C-3B470769ADBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{51328BB4-1496-4F0E-9BD5-3702EE37E222}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Analyzer", "ConsoleApplication1\Analyzer.csproj", "{51328BB4-1496-4F0E-9BD5-3702EE37E222}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

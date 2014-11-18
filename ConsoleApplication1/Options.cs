@@ -13,9 +13,6 @@ namespace ConsoleApplication1
         [OptionList('e', "extensions", Separator = ',', HelpText = "List of file extensions to search")]
         public IList<string> Extensions { get; set; }
 
-        [OptionList('k', "keywords", Separator = ',', HelpText = "List of keywords to search inside files")]
-        public IList<string> Keywords { get; set; }
-
         [HelpOption]
         public string GetUsage()
         {

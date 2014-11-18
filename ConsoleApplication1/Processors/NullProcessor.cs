@@ -10,7 +10,7 @@ namespace ConsoleApplication1.Processors
             return true;
         }
 
-        public override Result Process(string path, List<string> keywords)
+        public override Result Process(string path)
         {
             return new Result
                        {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
@@ -13,7 +12,7 @@ namespace ConsoleApplication1.Processors
             return extension.ToLower().Equals("scx") || extension.ToLower().Equals("vcx");
         }
 
-        public override Result Process(string path, List<string> keywords)
+        public override Result Process(string path)
         {
             var result = new Result { Name = Path.GetFileName(path), Path = path };
             OleDbConnection conn = null;
@@ -34,7 +33,6 @@ namespace ConsoleApplication1.Processors
 
                     if (m.Length > 0)
                     {
-                        result.Special += this.Occurs("r_0120", m);
                         result.MethodCount += this.Occurs("PROCEDURE", m);
                         m = m.Replace("\r\n", "\r");
                         m = m.Replace("\t", "");
