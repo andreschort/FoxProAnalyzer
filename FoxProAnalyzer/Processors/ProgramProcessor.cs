@@ -1,17 +1,24 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
-namespace ConsoleApplication1.Processors
+namespace FoxProAnalyzer.Processors
 {
     public class ProgramProcessor : FileProcessor
     {
-        public override bool CanProcess(string extension)
+        public override bool CanProcess(string filePath)
         {
-            return extension.ToLower().Equals("prg") || extension.ToLower().Equals("h");
+            return filePath.ToLower().Equals("prg") || filePath.ToLower().Equals("h");
         }
 
-        public override Result Process(string path)
+        public override Result Process(string path, bool trackReports = false)
         {
             var result = new Result { Name = Path.GetFileName(path), Path = path };
+
+            if (trackReports)
+            {
+                result.Reports = new List<string>();
+            }
 
             foreach (string line in File.ReadAllLines(path))
             {
@@ -22,6 +29,11 @@ namespace ConsoleApplication1.Processors
                 }
                 else
                 {
+                    if (trackReports)
+                    {
+                        result.Reports.AddRange(this.TrackReports(vLine));
+                    }
+
                     result.MethodCount += this.Occurs("PROCEDURE ", vLine.ToUpper());
                     result.MethodCount += this.Occurs("FUNCTION ", vLine.ToUpper());
 
@@ -36,6 +48,11 @@ namespace ConsoleApplication1.Processors
                         result.CodeLines++;
                     }
                 }
+            }
+
+            if (trackReports)
+            {
+                result.Reports = result.Reports.Distinct().ToList();
             }
 
             return result;

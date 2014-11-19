@@ -1,16 +1,15 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
-namespace ConsoleApplication1.Processors
+namespace FoxProAnalyzer.Processors
 {
     public class NullProcessor : FileProcessor
     {
-        public override bool CanProcess(string extension)
+        public override bool CanProcess(string filePath)
         {
             return true;
         }
 
-        public override Result Process(string path)
+        public override Result Process(string path, bool trackReports = false)
         {
             return new Result
                        {

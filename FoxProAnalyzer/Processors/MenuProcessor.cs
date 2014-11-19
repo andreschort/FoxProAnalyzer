@@ -1,20 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
+using System.Linq;
 
-namespace ConsoleApplication1.Processors
+namespace FoxProAnalyzer.Processors
 {
     public class MenuProcessor : FileProcessor
     {
-        public override bool CanProcess(string extension)
+        public override bool CanProcess(string filePath)
         {
-            return extension.ToLower().Equals("mnx");
+            return filePath.ToLower().Equals("mnx");
         }
 
-        public override Result Process(string path)
+        public override Result Process(string path, bool trackReports = false)
         {
             var result = new Result { Name = Path.GetFileName(path), Path = path };
+
+            if (trackReports)
+            {
+                result.Reports = new List<string>();
+            }
+
             OleDbConnection conn = null;
             try
             {
@@ -33,6 +41,11 @@ namespace ConsoleApplication1.Processors
 
                     if (m.Length > 0)
                     {
+                        if (trackReports)
+                        {
+                            this.TrackReports(m);
+                        }
+
                         result.MethodCount += this.Occurs("PROCEDURE", m);
                         m = m.Replace("\r\n", "\r");
                         m = m.Replace("\t", "");
@@ -68,6 +81,11 @@ namespace ConsoleApplication1.Processors
                 {
                     conn.Dispose();
                 }
+            }
+
+            if (trackReports)
+            {
+                result.Reports = result.Reports.Distinct().ToList();
             }
 
             return result;

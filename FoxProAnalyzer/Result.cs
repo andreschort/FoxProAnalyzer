@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsoleApplication1
+namespace FoxProAnalyzer
 {
     public class Result
     {
@@ -23,6 +23,6 @@ namespace ConsoleApplication1
 
         public int CodeLines { get; set; }
 
-        public List<string> Keywords { get; set; }
+        public List<string> Reports { get; set; }
     }
 }

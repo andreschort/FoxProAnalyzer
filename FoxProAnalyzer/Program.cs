@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-using ConsoleApplication1.Processors;
+using FoxProAnalyzer.Processors;
 
-namespace ConsoleApplication1
+namespace FoxProAnalyzer
 {
     class Program
     {
@@ -43,22 +43,20 @@ namespace ConsoleApplication1
             if (Path.HasExtension(options.Target))
             {
                 var fileProcessor = processors.FirstOrDefault(proc => proc.CanProcess(Path.GetExtension(options.Target))) ?? nullProcessor;
-                ProcessSingleFile(options.Target, fileProcessor);
+                ProcessSingleFile(options.Target, fileProcessor, options.TrackReports);
                 return;
             }
 
             var count = 0;
             var errors = new List<Result>();
 
-            var files = Directory.EnumerateFiles(options.Target, "*.*", SearchOption.AllDirectories);
-            var results = options.Extensions.Any()
-                              ? options.Extensions.SelectMany(
-                                  ext =>
-                                  files.Where(file => file.EndsWith("." + ext))
-                                      .Select(path => (processors.FirstOrDefault(p => p.CanProcess(ext)) ?? nullProcessor).Process(path)))
-                              : files.Select(
-                                  file => (processors.FirstOrDefault(proc => proc.CanProcess(Path.GetExtension(file).Substring(1))) ?? nullProcessor).Process(file));
-
+            var results =
+                GetFiles(options)
+                    .Select(
+                        file =>
+                        (processors.FirstOrDefault(proc => proc.CanProcess(Path.GetExtension(file).Substring(1)))
+                         ?? nullProcessor).Process(file, options.TrackReports));
+            
             foreach (var result in results)
             {
                 Console.Out.WriteLine(result.Path);
@@ -77,8 +75,14 @@ namespace ConsoleApplication1
                    .Append(result.CommentLines).Append(Separator)
                    .Append(result.CodeLines).Append(Separator)
                    .Append(result.IsError).Append(Separator)
-                   .Append(result.ErrorMessage).Append(Separator)
-                   .Append(Environment.NewLine);
+                   .Append(result.ErrorMessage).Append(Separator);
+
+                if (result.Reports != null)
+                {
+                    result.Reports.ForEach(r => csv.Append("\"" + r + "\"").Append(Separator));
+                }
+
+                csv.Append(Environment.NewLine);
             }
 
             File.WriteAllText("results.csv", csv.ToString());
@@ -96,9 +100,9 @@ namespace ConsoleApplication1
             }
         }
 
-        private static void ProcessSingleFile(string path, FileProcessor processor)
+        private static void ProcessSingleFile(string path, FileProcessor processor, bool trackReports)
         {
-            var result = processor.Process(path);
+            var result = processor.Process(path, trackReports);
 
             Console.WriteLine("Path: {0}", result.Path);
             Console.WriteLine("Methods: {0}", result.MethodCount);
@@ -113,6 +117,24 @@ namespace ConsoleApplication1
                 Console.WriteLine("Error: {0}", result.ErrorMessage);
                 Console.WriteLine(result.Exception);
             }
+        }
+
+        private static IEnumerable<string> GetFiles(Options options)
+        {
+            var files = Directory.EnumerateFiles(options.Target, "*.*", SearchOption.AllDirectories);
+
+            if (options.Extensions.Any())
+            {
+                return files.Where(file => options.Extensions.Contains(Path.GetExtension(file).Substring(1)));
+            }
+
+            if (options.AllFiles)
+            {
+                return files;
+            }
+
+            var knownExtensions = new List<string> { "scx", "vcx", "mnx", "prg", "h", "frx" };
+            return files.Where(file => knownExtensions.Contains(Path.GetExtension(file).Substring(1)));
         }
     }
 }

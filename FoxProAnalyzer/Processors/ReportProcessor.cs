@@ -3,16 +3,16 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 
-namespace ConsoleApplication1.Processors
+namespace FoxProAnalyzer.Processors
 {
     public class ReportProcessor : FileProcessor
     {
-        public override bool CanProcess(string extension)
+        public override bool CanProcess(string filePath)
         {
-            return extension.ToLower().Equals("frx");
+            return filePath.ToLower().Equals("frx");
         }
 
-        public override Result Process(string path)
+        public override Result Process(string path, bool trackReports = false)
         {
             var result = new Result { Name = Path.GetFileName(path), Path = path };
             OleDbConnection conn = null;
