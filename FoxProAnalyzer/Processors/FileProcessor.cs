@@ -37,12 +37,18 @@ namespace FoxProAnalyzer.Processors
 
         public List<string> TrackReports(string text)
         {
-            var search1 = from Match match in Regex.Matches(text.ToLower(), @"'r_(\d{3,4})(.frx)?'")
+            var lower = text.ToLower();
+            var search1 = from Match match in Regex.Matches(lower, @"'r_(\d{3,4})(\.frx)?'")
                           select match.ToString()
                           into item
                           select item.Substring(1, item.Length - 2);
 
-            return search1.Union(from Match match in Regex.Matches(text.ToLower(), @"loImprimir.Id[ \t]*=[ \t]*(\d{3,4})") select match.ToString()).ToList();
+            var search2 = from Match match in Regex.Matches(lower, @"loimprimir\.id\s*=\s*(\d{3,4})")
+                          select match.Groups[1].ToString();
+
+            return search1.Select(x => x.EndsWith(".frx") ? x : x + ".frx")
+                          .Union(search2.Select(x => "r_" + (x.Length <= 3 ? "0" + x : x) + ".frx"))
+                          .ToList();
         }
 
         public void InspectLines(string fileContent, Result result)

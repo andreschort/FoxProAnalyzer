@@ -42,7 +42,7 @@ namespace FoxProAnalyzer
 
             if (Path.HasExtension(options.Target))
             {
-                var fileProcessor = processors.FirstOrDefault(proc => proc.CanProcess(Path.GetExtension(options.Target))) ?? nullProcessor;
+                var fileProcessor = processors.FirstOrDefault(proc => proc.CanProcess(options.Target)) ?? nullProcessor;
                 ProcessSingleFile(options.Target, fileProcessor, options.TrackReports);
                 return;
             }
@@ -54,9 +54,10 @@ namespace FoxProAnalyzer
                 GetFiles(options)
                     .Select(
                         file =>
-                        (processors.FirstOrDefault(proc => proc.CanProcess(Path.GetExtension(file).Substring(1)))
+                        (processors.FirstOrDefault(proc => proc.CanProcess(file))
                          ?? nullProcessor).Process(file, options.TrackReports));
-            
+
+            var reportReferences = new Dictionary<string, List<string>>();
             foreach (var result in results)
             {
                 Console.Out.WriteLine(result.Path);
@@ -79,13 +80,37 @@ namespace FoxProAnalyzer
 
                 if (result.Reports != null)
                 {
-                    result.Reports.ForEach(r => csv.Append("\"" + r + "\"").Append(Separator));
+                    foreach (var report in result.Reports)
+                    {
+                        if (reportReferences.ContainsKey(report))
+                        {
+                            reportReferences[report].Add(result.Name);
+                        }
+                        else
+                        {
+                            reportReferences[report] = new List<string> { result.Name };
+                        }
+                    }
                 }
 
                 csv.Append(Environment.NewLine);
             }
 
             File.WriteAllText("results.csv", csv.ToString());
+
+            csv = new StringBuilder();
+
+            foreach (var report in reportReferences)
+            {
+                csv.Append(report.Key).Append(Separator);
+                foreach (var reference in report.Value)
+                {
+                    csv.Append(reference).Append(Separator);
+                }
+                csv.Append(Environment.NewLine);
+            }
+
+            File.WriteAllText("reports.csv", csv.ToString());
             
             Console.Out.WriteLine("Total: {0}", count);
             Console.Out.WriteLine("Errors: {0}", errors.Count);
@@ -109,6 +134,15 @@ namespace FoxProAnalyzer
             Console.WriteLine("Blanks: {0}", result.BlankLines);
             Console.WriteLine("Comments: {0}", result.CommentLines);
             Console.WriteLine("Code: {0}", result.CodeLines);
+
+            if (trackReports)
+            {
+                Console.Out.WriteLine("Reports:");
+                foreach (var report in result.Reports)
+                {
+                    Console.Out.WriteLine(report);
+                }
+            }
 
             Console.WriteLine("IsError: {0}", result.IsError);
 

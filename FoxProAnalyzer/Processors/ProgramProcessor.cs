@@ -8,7 +8,8 @@ namespace FoxProAnalyzer.Processors
     {
         public override bool CanProcess(string filePath)
         {
-            return filePath.ToLower().Equals("prg") || filePath.ToLower().Equals("h");
+            var lower = filePath.ToLower();
+            return lower.EndsWith(".prg") || lower.EndsWith(".h");
         }
 
         public override Result Process(string path, bool trackReports = false)
