@@ -97,7 +97,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileIterator.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="Strategies\Report\ReportResult.cs" />
+    <Compile Include="Strategies\Report\ReportStrategy.cs" />
+    <Compile Include="Strategies\Sql\SqlResult.cs" />
+    <Compile Include="Strategies\Sql\SqlStrategy.cs" />
+    <Compile Include="Strategies\Summary\SummaryResult.cs" />
+    <Compile Include="Util\CsvFile.cs" />
+    <Compile Include="Util\FileIterator.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Processors\MenuProcessor.cs" />
     <Compile Include="Processors\NullProcessor.cs" />
@@ -108,6 +115,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Processors\ReportProcessor.cs" />
     <Compile Include="Result.cs" />
+    <Compile Include="Strategies\BaseStrategy.cs" />
+    <Compile Include="Strategies\IStrategy.cs" />
+    <Compile Include="Util\Processor.cs" />
+    <Compile Include="Strategies\Summary\SummaryStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Analyzer_TemporaryKey.pfx" />

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 
+using FoxProAnalyzer.Util;
+
 namespace FoxProAnalyzer.Processors
 {
     public class ReportProcessor : FileProcessor

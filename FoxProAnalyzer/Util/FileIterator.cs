@@ -5,7 +5,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Linq;
 
-namespace FoxProAnalyzer
+namespace FoxProAnalyzer.Util
 {
     public class FileIterator : IDisposable
     {

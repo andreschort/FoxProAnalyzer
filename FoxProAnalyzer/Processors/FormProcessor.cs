@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+using FoxProAnalyzer.Util;
+
 namespace FoxProAnalyzer.Processors
 {
     public class FormProcessor : FileProcessor

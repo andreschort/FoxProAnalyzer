@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 
 using FoxProAnalyzer.Processors;
+using FoxProAnalyzer.Strategies;
+using FoxProAnalyzer.Strategies.Report;
+using FoxProAnalyzer.Strategies.Sql;
+using FoxProAnalyzer.Strategies.Summary;
 
 namespace FoxProAnalyzer
 {
@@ -18,6 +22,10 @@ namespace FoxProAnalyzer
             {
                 return;
             }
+
+            var context = new Context(options.Target, GetStrategy(options));
+            context.Execute();
+            return;
 
             var csv = new StringBuilder();
             const string Separator = ";";
@@ -123,6 +131,21 @@ namespace FoxProAnalyzer
                 Console.WriteLine(result.Exception);
                 Console.In.ReadLine();
             }
+        }
+
+        private static IStrategy GetStrategy(Options options)
+        {
+            if (options.TrackReports)
+            {
+                return new ReportStrategy(options.Output);
+            }
+            
+            if (options.SearchSql)
+            {
+                return new SqlStrategy();
+            }
+
+            return new SummaryStrategy(options.Output);
         }
 
         private static void ProcessSingleFile(string path, FileProcessor processor, bool trackReports)
