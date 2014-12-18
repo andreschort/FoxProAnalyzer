@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace FoxProAnalyzer.Strategies.Sql
+﻿namespace FoxProAnalyzer.Strategies.SqlSummary
 {
-    public class SqlResult
+    public class SqlSummaryResult
     {
         public string Name { get; set; }
 

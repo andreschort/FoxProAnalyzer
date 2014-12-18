@@ -5,6 +5,10 @@ using FoxProAnalyzer.Util;
 
 namespace FoxProAnalyzer.Strategies.Summary
 {
+    /// <summary>
+    /// Genera un listado de todos los recursos encontrados con informacion como el numero de lineas de codigo de cada recurso.
+    /// Es el mismo reporte generado por la herramienta VFPLOCCounter.
+    /// </summary>
     public class SummaryStrategy : BaseStrategy<SummaryResult>
     {
         private CsvFile outFile { get; set; }

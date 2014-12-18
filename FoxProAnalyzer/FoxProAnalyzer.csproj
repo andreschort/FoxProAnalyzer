@@ -98,10 +98,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Strategies\DoForm\FormCall.cs" />
+    <Compile Include="Strategies\DoForm\FormResult.cs" />
+    <Compile Include="Strategies\DoForm\FormStrategy.cs" />
     <Compile Include="Strategies\Report\ReportResult.cs" />
     <Compile Include="Strategies\Report\ReportStrategy.cs" />
-    <Compile Include="Strategies\Sql\SqlResult.cs" />
-    <Compile Include="Strategies\Sql\SqlStrategy.cs" />
+    <Compile Include="Strategies\SqlSummary\SqlSummaryResult.cs" />
+    <Compile Include="Strategies\SqlSummary\SqlSummaryStrategy.cs" />
+    <Compile Include="Strategies\StoredProcedure\StoredProcedureCall.cs" />
+    <Compile Include="Strategies\StoredProcedure\StoredProcedureResult.cs" />
+    <Compile Include="Strategies\StoredProcedure\StoredProcedureStrategy.cs" />
     <Compile Include="Strategies\Summary\SummaryResult.cs" />
     <Compile Include="Util\CsvFile.cs" />
     <Compile Include="Util\FileIterator.cs" />
@@ -117,6 +123,7 @@
     <Compile Include="Result.cs" />
     <Compile Include="Strategies\BaseStrategy.cs" />
     <Compile Include="Strategies\IStrategy.cs" />
+    <Compile Include="Util\FoxUtil.cs" />
     <Compile Include="Util\Processor.cs" />
     <Compile Include="Strategies\Summary\SummaryStrategy.cs" />
   </ItemGroup>

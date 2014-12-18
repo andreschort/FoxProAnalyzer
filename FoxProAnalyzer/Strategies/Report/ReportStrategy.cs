@@ -8,6 +8,9 @@ using FoxProAnalyzer.Util;
 
 namespace FoxProAnalyzer.Strategies.Report
 {
+    /// <summary>
+    /// Busca los usos de reportes FRX
+    /// </summary>
     public class ReportStrategy : BaseStrategy<ReportResult>
     {
         private readonly string output;
